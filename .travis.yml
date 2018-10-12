@@ -23,4 +23,7 @@ before_install: |
 
 # cephfs (fuse) requires: --device /dev/fuse --cap-add SYS_ADMIN --security-opt apparmor:unconfined
 script:
+  - go vet ./...
+  - go get -u golang.org/x/lint/golint
+  - golint ./...
   - docker run --device /dev/fuse --cap-add SYS_ADMIN --security-opt apparmor:unconfined --rm -it -v ${PWD}:/go/src/github.com/ceph/go-ceph:z ceph-golang-ci
